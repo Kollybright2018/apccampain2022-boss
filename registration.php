@@ -11,7 +11,7 @@ require_once "inc/registerloader.php";
           <img src="Images/logo.png" class="img-fluid" alt="">
           <p class="mt-2 text-warning"><i>Osun State Apc 2022</i></p>
         </div>
-        <div id="alert" class="alert  d-none alert-danger alert-dismissible">
+        <div id="alert" class="alert alert-dismissible">
           <button type="btn" data-bs-dismiss="alert" class="btn-close"></button>
           <strong id="alert_text"></strong>
         </div>
@@ -130,6 +130,8 @@ require_once "inc/registerloader.php";
 <script>
   // Get my elements
   let regform = document.getElementById('regform');
+  let alert = document.getElementById('alert');
+  alert.style.opacity = '0'
   // display error
   function errors(id, message) {
     id = document.getElementById(id);
@@ -143,6 +145,10 @@ require_once "inc/registerloader.php";
     }
     if (regform.phone.value.trim() === '') {
       errors('phone_error', "Phone No cannot be empty");
+      return false;
+    }
+    if (isNaN(regform.phone.value.trim()) === true ) {
+      errors('phone_error', "Invalid Phone Number");
       return false;
     }
     if (regform.lg.value.trim() === '') {
@@ -216,8 +222,8 @@ require_once "inc/registerloader.php";
           errors('vote_error', response.data.voteErr);
         }
         if (response.data.exist) {
-          var alert = document.getElementById('alert');
-          alert.classList.remove('d-none');
+          alert.style.opacity= '1'
+          alert.classList.add('alert-danger');
           errors("alert_text", response.data.exist);
           window.scrollTo(0, 100)
           Swal.fire({
@@ -227,8 +233,7 @@ require_once "inc/registerloader.php";
           })
         }
         if (response.data.success && !response.data.exist) {
-          var alert = document.getElementById('alert');
-          alert.classList.remove('d-none', 'alert-danger');
+          alert.style.opacity= '1'
           alert.classList.add('alert-success');
           errors("alert_text", response.data.success);
           Swal.fire({
@@ -237,7 +242,7 @@ require_once "inc/registerloader.php";
             text: 'Memeber added successfully',
             footer: '<a href="welcome.php">Go to home page?</a>'
           })
-
+          Window.reload();
           // window.scrollTo(0, 100)
           // setTimeout(() => {
           //   window.location.reload();

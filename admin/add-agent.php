@@ -177,6 +177,10 @@ alert.style.opacity= '0'
       errors('phone_error', "Phone No cannot be empty");
       return false;
     }
+    if (isNaN(regform.phone.value.trim()) === true ) {
+      errors('phone_error', "Invalid Phone Number");
+      return false;
+    }
     if (regform.lg.value.trim() === '') {
       errors('lg_error', "local Government No cannot be empty");
       return false
