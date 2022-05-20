@@ -4,7 +4,7 @@ require_once "inc/registerloader.php";
 ?>
 <div class="container-fluid bg-c d-none" id="mainpage">
   <div class="container p-2">
-    <div class="row justify-content-center mt-2">
+    <div id="row_id" class="row  justify-content-center mt-2">
       <!-- <h3 class="text-warning text-center my-5">You're Welcome to Osun State APC 2023 Campaign Website</h3> -->
       <div class="col-md-6  col-sm-10">
         <div class="text-center ">
@@ -15,9 +15,7 @@ require_once "inc/registerloader.php";
           <button type="btn" data-bs-dismiss="alert" class="btn-close"></button>
           <strong id="alert_text"></strong>
         </div>
-
         <form action="" id="regform">
-
           <div class="form-floating mt-2">
             <input type="text" name="fullname" placeholder="Full Name" class="form-control" id="">
             <label for="fullname">Full Name </label>
@@ -101,7 +99,6 @@ require_once "inc/registerloader.php";
             <label for="Votes">If No, Reason</label>
             <strong class="text-danger" id="reason_error"></strong>
           </div>
-
           <div class="form-floating mt-2">
             <textarea name="comment" id="" class="form-control" cols="30" rows="10"></textarea>
             <label for="Votes">Comment</label>
@@ -110,7 +107,6 @@ require_once "inc/registerloader.php";
           <button type="submit" name="reg" class="btn form-control my-2 btn-success form-control btn-lg">Register</button>
           <a class="btn btn-warning  p-2 mt-1 text-light" href="welcome.php"> Go Back </a>
           <a class="btn btn-danger  p-2 mt-1 text-light float-end" href="logout.php">Logout </a>
-
         </form>
       </div>
     </div>
@@ -119,13 +115,7 @@ require_once "inc/registerloader.php";
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-  // Loading Script
-  function loading() {
-    setTimeout(function() {
-      document.getElementById("loader").classList.add("d-none");
-      document.getElementById("mainpage").classList.remove("d-none");
-    }, 1000);
-  }
+
 </script>
 <script>
   // Get my elements
@@ -142,34 +132,50 @@ require_once "inc/registerloader.php";
     if (regform.fullname.value.trim() === '') {
       errors('fullname_error', "Fullname cannot be empty");
       return false
+    }else{
+      errors('fullname_error', "");
     }
     if (regform.phone.value.trim() === '') {
       errors('phone_error', "Phone No cannot be empty");
       return false;
+    }else{
+      errors('phone_error', "");
     }
     if (isNaN(regform.phone.value.trim()) === true ) {
       errors('phone_error', "Invalid Phone Number");
       return false;
+    }else{
+      errors('phone_error', "");
     }
     if (regform.lg.value.trim() === '') {
       errors('lg_error', "local Government No cannot be empty");
       return false
+    }else{
+      errors('lg_error', "");
     }
     if (regform.ward.value.trim() === '') {
       errors('ward_error', "Ward No cannot be empty");
       return false
+    }else{
+      errors('ward_error', "");
     }
     if (regform.poll.value.trim() === '') {
       errors('poll_error', "Poll No cannot be empty")
       return false
+    }else{
+      errors('poll_error', "");
     }
     if (regform.card.value.trim() === '') {
       errors('card_error', "Voters card  No cannot be empty");
       return false
+    }else{
+      errors('card_error', "");
     }
     if (regform.vote.value.trim() === '') {
       errors('vote_error', "You must Select one");
       return false
+    }else{
+      errors('vote_error', "");
     }
     return true
   }
@@ -242,11 +248,8 @@ require_once "inc/registerloader.php";
             text: 'Memeber added successfully',
             footer: '<a href="welcome.php">Go to home page?</a>'
           })
-          Window.reload();
-          // window.scrollTo(0, 100)
-          // setTimeout(() => {
-          //   window.location.reload();
-          // }, 5000);
+          regform.reset();
+          alert.style.opacity= '0'
         }
 
       })

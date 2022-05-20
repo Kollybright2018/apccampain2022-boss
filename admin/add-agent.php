@@ -24,7 +24,7 @@ require_once "../inc/registerloader.php";
 <!-- Tabable-->
 <section class="content mt-4 " id="mainpage">
     <div class="container-fluid ">
-    <div class="row justify-content-center mt-2">
+    <div id="row_id" class="row justify-content-center mt-2">
       <!-- <h3 class="text-warning text-center my-5">You're Welcome to Osun State APC 2023 Campaign Website</h3> -->
       <div class="col-md-6  col-sm-10">
         <div class="text-center ">
@@ -36,12 +36,11 @@ require_once "../inc/registerloader.php";
           <button type="btn" data-bs-dismiss="alert" class="btn-close"></button>
 
           <div class="text-center">
-             <strong id="alert_text"></strong> <br>
-           <strong id="warning">Pls Take Note</strong>  
-          <strong class="text-warning" id="username"> </strong> <br>
+             <strong id="alert_text"></strong>
+           <strong class="text-warning" id="warning"></strong>  
+          <strong  id="username"> </strong> 
           <strong id="password"></strong>
-         
-          </div>
+         </div>
          
         </div>
 
@@ -172,39 +171,58 @@ alert.style.opacity= '0'
     if (regform.fullname.value.trim() === '') {
       errors('fullname_error', "Fullname cannot be empty");
       return false
+    }else{
+      errors('fullname_error', "");
     }
     if (regform.phone.value.trim() === '') {
       errors('phone_error', "Phone No cannot be empty");
       return false;
+    }else{
+      errors('phone_error', "");
     }
     if (isNaN(regform.phone.value.trim()) === true ) {
       errors('phone_error', "Invalid Phone Number");
       return false;
+    }else{
+      errors('phone_error', "");
     }
     if (regform.lg.value.trim() === '') {
       errors('lg_error', "local Government No cannot be empty");
       return false
+    }else{
+      errors('lg_error', "");
     }
     if (regform.ward.value.trim() === '') {
       errors('ward_error', "Ward No cannot be empty");
       return false
+    }else{
+      errors('ward_error', "");
     }
+    
     if (regform.poll.value.trim() === '') {
       errors('poll_error', "Poll No cannot be empty")
       return false
+    }else{
+      errors('poll_error', "")
     }
     if (regform.password.value.trim() === '') {
       errors('password', "Password cannot be empty");
       return false
+    }else{
+      errors('password', "")
     }
     if (regform.password.value.trim().leng < 6 ) {
       errors('password', "Manimum of six Character or more");
       return false
+    }else{
+      errors('password', "")
     }
-  
+
     if (regform.role.value.trim() === '') {
       errors('role_error', "You must Select one");
       return false
+    }else{
+      errors('role_error', "")
     }
     return true
   }
@@ -221,7 +239,8 @@ alert.style.opacity= '0'
       poll = regform['poll'].value.trim();
       password = regform['password'].value.trim();
       role = regform['role'].value.trim();
-
+      
+      //axios 
       axios.post('add-agent-action.php', {
         fullname: fullname,
         username: username,
@@ -232,8 +251,6 @@ alert.style.opacity= '0'
         password: password,
         role: role,
       }).then(function(response) {
-        // console.log(response);
-
         if (response.data.fullnameErr) {
           errors('fullname_error', response.data.fullnameErr);
         }
@@ -277,17 +294,17 @@ alert.style.opacity= '0'
           alert.style.opacity= '1'
           alert.classList.add('alert-success');
           errors("alert_text", response.data.success);
-          document.getElementById('warning').innerHTML = " Take note of your user's login details and keep it save"
-          document.getElementById('username').innerHTML = " Username: " + response.data.username;
-          document.getElementById('password').innerHTML = " Password: " + response.data.password;
+          document.getElementById('warning').innerHTML = " Take note of your user's login details and keep it save <br>"
+          document.getElementById('username').innerHTML = " Username: " + response.data.username + '<br>';
+          document.getElementById('password').innerHTML = " Password: " + response.data.password + '<br>';
           Swal.fire({
             icon: 'success',
             title: 'added',
             text: 'Memeber added successfully',
             footer: '<a href="index.php">Go to home page?</a>'
           })
-         
-
+          regform.reset();
+          alert.style.opacity= '0'
         } //success if
 
       }) //then

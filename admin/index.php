@@ -171,7 +171,16 @@ require('inc/usersserver.php')
   <!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
-
+<script>
+      // Loading Script
+  function loading() {
+    setTimeout(function() {
+      document.getElementById("loader").classList.add("d-none");
+      document.getElementById("mainpage").classList.remove("d-none");
+    }, 1000);
+  }
+  
+</script>
 <?php
 require 'inc/footer.php';
 ?>
